@@ -7,8 +7,9 @@
 #include <netdb.h> 
 #include<stdlib.h>  
 
-#include "color.h"
-#include "cs.h"
+// #include "color.h"
+// #include "cs.h"
+
 char ip[50];
 void server();
 void client(char ip[]);
@@ -72,12 +73,8 @@ int showip()
 int main()
 {
     yellow();
-    printf("\n<>===========|");
+    banner();
     green();
-    printf("Lazy-Share");
-    yellow();
-    printf("|===========<>\n");
-
 
     int choice = machine_page();
 
