@@ -5,10 +5,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
-#include<stdlib.h>  
+#include <stdlib.h>  
 
-// #include "color.h"
-// #include "cs.h"
+//include "color.h"
+//include "cs.h"
 
 char ip[50];
 void server();

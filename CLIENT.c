@@ -6,8 +6,8 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 #include<string.h>
-#include "color.h"
-#include "cs.h"
+//#include "color.h"
+//#include "cs.h"
 
 void last_backup_write();
 
