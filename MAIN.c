@@ -7,8 +7,9 @@
 #include <netdb.h> 
 #include<stdlib.h>  
 
-#include "color.h"
-#include "cs.h"
+// #include "color.h"
+// #include "cs.h"
+
 char ip[50];
 void server();
 void client(char ip[]);
