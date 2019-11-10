@@ -72,12 +72,8 @@ int showip()
 int main()
 {
     yellow();
-    printf("\n<>===========|");
+    banner();
     green();
-    printf("Lazy-Share");
-    yellow();
-    printf("|===========<>\n");
-
 
     int choice = machine_page();
 
