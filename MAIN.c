@@ -10,6 +10,11 @@ char ip[50];
 void server();
 void client(char ip[]);
 
+void wificonnect()
+{
+    system("./wifi");
+}
+
 // Shows Error 
 void error(char *msg)
 {
@@ -80,6 +85,7 @@ int main()
     yellow();
     banner();
     green();
+    wificonnect();
 
     int choice = machine_page();
 
@@ -93,6 +99,7 @@ int main()
             switch(n)
             {
                 case 1:
+
                     server();
                     break;
                 

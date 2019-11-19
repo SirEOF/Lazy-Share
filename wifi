@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Change the name to the name of server hotspot
+
+name= hii
+pass= qwertyuiop
+
+sudo ifconfig wlan0 up
+sudo nmcli device wifi connect $name password $pass
+echo "Connected"
