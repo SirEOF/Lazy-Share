@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 #include<string.h>
+#include<dirent.h>
 
 void client(char ip[])
 {
@@ -45,26 +46,79 @@ void client(char ip[])
     
     printf("Sending File: ");
     bzero(buffer,256);
-    FILE *filepointer;
-    filepointer = fopen("test.txt" , "r");
-    fgets(buffer,255,filepointer);
+
+    //SHUBHAM ARYA
+    // FILE *filepointer;
+    // filepointer = fopen("test.txt" , "r");
+    // fgets(buffer,255,filepointer);
     
-    n = write(sockfd,buffer,strlen(buffer));
+    // n = write(sockfd,buffer,strlen(buffer));
     
-    if (n < 0) 
-         {
+    // if (n < 0) 
+    //      {
+    //         error("ERROR writing to socket");
+    //      }
+    
+    // bzero(buffer,256);
+    // last_backup_write();
+    // n = read(sockfd,buffer,255);
+    
+    // if (n < 0) 
+    //      {
+    //          error("ERROR reading from socket");
+    //      }
+
+    // printf("%s\n",buffer);
+
+
+    // DIXIT
+
+    int i=0;
+	struct dirent *de;
+	DIR *dr = opendir("./files");
+	while((de=readdir(dr))!=NULL)
+	{
+		if(i>=2)
+		{
+			FILE *filepointer;
+			char ch[50]="./files/";
+			char *ch2=de->d_name;
+			strcat(ch,ch2);
+			bzero(buffer,256);
+			filepointer = fopen(ch , "r");
+    			fgets(buffer,255,filepointer);
+    			n = write(sockfd,buffer,strlen(buffer));
+			if (n < 0) 
+        		{
+            			error("ERROR writing to socket");
+         		}
+    			  			
+			bzero(buffer,256);
+    			printf("%d file send\n",i-1);
+    				
+		
+		}
+		/*while(1)
+		{
+			n = read(sockfd,buffer,256);
+			if(strcmp(buffer,"done")==0)
+				break;
+		}*/
+		i++;
+	}
+	/*buffer="complete";
+	n=write(sockfd,buffer,strlen(buffer));
+	if (n < 0) 
+    	{
             error("ERROR writing to socket");
-         }
-    
-    bzero(buffer,256);
-    last_backup_write();
-    n = read(sockfd,buffer,255);
-    
-    if (n < 0) 
+        }  
+	bzero(buffer,256);*/
+	last_backup_write();
+	n = read(sockfd,buffer,255);
+    	
+    	if (n < 0) 
          {
-             error("ERROR reading from socket");
+             	error("ERROR reading from socket");
          }
-
-    printf("%s\n",buffer);
-
+	printf("%s\n",buffer);
 }

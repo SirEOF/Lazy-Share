@@ -39,23 +39,68 @@ void server()
     }
         
     bzero(buffer,256);
-    n = read(newsockfd,buffer,255);
 
-    if (n < 0)
-    {
-        error("ERROR reading from socket");
-    }
+    // n = read(newsockfd,buffer,255);
 
-    FILE *filepointer;
-    filepointer = fopen("recv.txt","w");
-    last_backup_write();
-    fputs(buffer,filepointer);
-    printf("File Recieved\n");
-    n = write(newsockfd,"Recieved",8);
-    if (n < 0)
-    {
-        error("ERROR writing to socket");
-    }
+    // if (n < 0)
+    // {
+    //     error("ERROR reading from socket");
+    // }
+    // FILE *filepointer;
+    // filepointer = fopen("recv.txt","w");
+    // last_backup_write();
+    // fputs(buffer,filepointer);
+    // printf("File Recieved\n");
+    // n = write(newsockfd,"Recieved",8);
+    // if (n < 0)
+    // {
+    //     error("ERROR writing to socket");
+    // }
 
+
+    char ch[]="./recieved/recX.txt";
+	int i=1;
+	FILE *filepointer;
+	while(1)
+	{
+        bzero(buffer,256);
+        n = read(newsockfd,buffer,255);
+        if (n < 0)
+        {
+            error("ERROR reading from socket");
+        }
+
+    	printf("buffer is %s\n",buffer);
+        if(strcmp("complete",buffer)==0)
+        {
+            //fclose(filepointer);
+            n = write(newsockfd,"Recieved",8);
+        
+                if (n < 0) error("ERROR writing to socket");
+            break;
+        }
+        else
+        {
+            if(i==1)
+            {
+                ch[14]=i+ '0';
+                filepointer = fopen(ch,"w");
+            }
+                
+                
+                fputs(buffer,filepointer);
+            fclose(filepointer);
+            printf("%d File Recieved\n",i);
+            i++;
+            ch[14]=i+'0';	
+            filepointer=fopen(ch,"w");
+            //n = write(newsockfd,"done",5);
+                
+        }
+
+        last_backup_write();
+        
+        }
+	fclose(filepointer);
 }
 
