@@ -1,4 +1,3 @@
-// Main function
 
 #include <stdio.h>
 #include <sys/types.h>
@@ -7,32 +6,38 @@
 #include <netdb.h> 
 #include <stdlib.h>  
 
-//include "color.h"
-//include "cs.h"
-
 char ip[50];
 void server();
 void client(char ip[]);
 
+// Shows Error 
+void error(char *msg)
+{
+    red();
+    perror(msg);
+    exit(1);
+}
+
+// Inputs IP to Send it to Client
 void input()
 {
     printf("Enter the IP you got from server side: ");
     scanf("%s",&ip);
 }
 
-//works
+// Writes Last Backup Time to a File
 void last_backup_write()
 {
-    system("date > lastbackup.txt");
+    system("date > .lastbackup.txt");
 }
 
-//works
+// Reads Last Backup Time from a File
 void last_backup_read()
 {
-    system("cat lastbackup.txt");
+    system("cat .lastbackup.txt");
 }
 
-//works
+// Choices For the User
 int common_display_page()
 {
     int choice;
@@ -45,7 +50,7 @@ int common_display_page()
     return choice;
 }
 
-//works
+// Choose if the Machine is Server/Client
 int machine_page()
 {
     int a;
@@ -55,21 +60,21 @@ int machine_page()
     return a;
 }
 
-//works
+// Shows the IP of the Machine
 int showip()
 {
     red();
     printf("\nThis is the server IP details ==>\n");
     yellow();
-    printf("==============================================================================\n\n");
+    printf("============================================================\n\n");
     system("ifconfig wlan0 | tr ' ' '\n' | grep -A1 inet");
-    printf("\n==============================================================================\n");
+    printf("\n==========================================================\n");
     red();
     printf("\nUse the value of inet as IP address on the client side\n");
     return 0;
 }
 
-//works
+// Main Function
 int main()
 {
     yellow();

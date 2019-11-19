@@ -1,4 +1,4 @@
-// Main client program
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -6,16 +6,9 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 #include<string.h>
-//#include "color.h"
-//#include "cs.h"
-
-void last_backup_write();
-
-#define FILE_TO_SEND test.txt
 
 void client(char ip[])
 {
-    /* Declarations*/
     int sockfd, portno = 1234, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
@@ -49,6 +42,7 @@ void client(char ip[])
             error("ERROR connecting");
         }
 
+    
     printf("Sending File: ");
     bzero(buffer,256);
     FILE *filepointer;
@@ -72,5 +66,5 @@ void client(char ip[])
          }
 
     printf("%s\n",buffer);
-}
 
+}
