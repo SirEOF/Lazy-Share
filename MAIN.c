@@ -10,6 +10,7 @@ char ip[50];
 void server();
 void client(char ip[]);
 
+// Connect to wifi
 void wificonnect()
 {
     system("./wifi");

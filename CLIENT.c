@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -78,13 +77,16 @@ void client(char ip[])
 	DIR *dr = opendir("./files");
 	while((de=readdir(dr))!=NULL)
 	{
-		if(i>=2)
+		if(i>=0)
 		{
 			FILE *filepointer;
 			char ch[50]="./files/";
 			char *ch2=de->d_name;
+			if((strcmp(".",ch2)==0)||(strcmp("..","ch2")==0))
+				continue;
 			strcat(ch,ch2);
 			bzero(buffer,256);
+			printf("file sending is %s\n",ch);
 			filepointer = fopen(ch , "r");
     			fgets(buffer,255,filepointer);
     			n = write(sockfd,buffer,strlen(buffer));
@@ -94,7 +96,7 @@ void client(char ip[])
          		}
     			  			
 			bzero(buffer,256);
-    			printf("%d file send\n",i-1);
+    			printf("%d file send\n",i+1);
     				
 		
 		}
@@ -106,13 +108,13 @@ void client(char ip[])
 		}*/
 		i++;
 	}
-	/*buffer="complete";
-	n=write(sockfd,buffer,strlen(buffer));
+	/*buffer="complete";*/
+	n=write(sockfd,"complete",strlen("complete"));
 	if (n < 0) 
     	{
             error("ERROR writing to socket");
         }  
-	bzero(buffer,256);*/
+	bzero(buffer,256);
 	last_backup_write();
 	n = read(sockfd,buffer,255);
     	

@@ -58,8 +58,8 @@ void server()
     // }
 
 
-    char ch[]="./recieved/recX.txt";
-	int i=1;
+    //char ch[]="./recieved/recX.txt";
+	//int i=1;
 	FILE *filepointer;
 	while(1)
 	{
@@ -71,7 +71,8 @@ void server()
         }
 
     	printf("buffer is %s\n",buffer);
-        if(strcmp("complete",buffer)==0)
+	//printf("compare result for %s is %d",buffer,strncmp("complete",buffer,8));
+        /*if(strncmp("complete",buffer,8)==0)
         {
             //fclose(filepointer);
             n = write(newsockfd,"Recieved",8);
@@ -81,26 +82,69 @@ void server()
         }
         else
         {
-            if(i==1)
+            if(1)//if(i==1)
             {
                 ch[14]=i+ '0';
                 filepointer = fopen(ch,"w");
             }
                 
                 
-                fputs(buffer,filepointer);
+            fputs(buffer,filepointer);
             fclose(filepointer);
             printf("%d File Recieved\n",i);
             i++;
-            ch[14]=i+'0';	
-            filepointer=fopen(ch,"w");
+            //ch[14]=i+'0';	
+            //filepointer=fopen(ch,"w");
             //n = write(newsockfd,"done",5);
                 
-        }
+        }*/
 
+
+	//================================================================================
+	//ARYA DONT ASK ME
+
+	int i=0;
+
+	FILE *ptr;
+	int fileno=1,i_temp=0;
+	char ch[]="./recieved/recX.txt";
+	char temp[255];
+		
+	ch[14]='0' + fileno;
+	//printf("success\n");
+	
+	ptr=fopen(ch,"w");
+	
+	while(buffer[i]!='\0')
+	{
+		
+		if(buffer[i]=='\n')
+		{
+			fputs(temp,ptr);
+			bzero(temp,255);
+			fclose(ptr);
+			fileno++;
+			i_temp=0;
+			ch[14]=fileno+'0';
+			ptr=fopen(ch,"w");
+		}
+		else
+		{
+			temp[i_temp]=buffer[i];
+			i_temp++;
+		}
+		i++;
+	
+
+	}
+
+
+
+	//=================================================================================
         last_backup_write();
-        
+        break;
         }
-	fclose(filepointer);
+	//fclose(ptr);
+	
 }
 
