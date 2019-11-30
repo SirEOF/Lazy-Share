@@ -6,7 +6,8 @@
 #include<stdlib.h>
 
 void server()
-{
+{   
+    //system("./.hotspot.sh");
     int n,sockfd, newsockfd, clilen;
     int portno = 1234;
     char buffer[256];
@@ -40,8 +41,9 @@ void server()
         
     bzero(buffer,256);
 	FILE *filepointer;
-	while(1)
-	{
+int fileno=1;
+while(1)
+{
         bzero(buffer,256);
         n = read(newsockfd,buffer,255);
         if (n < 0)
@@ -50,17 +52,27 @@ void server()
         }
 
     	printf("buffer is %s\n",buffer);
+	if(strncmp(buffer,"complete",8)==0)
+		break;	
 	int i=0;
 
 	FILE *ptr;
-	int fileno=1,i_temp=0;
+	
 	char ch[]="./Recieved/recX.txt";
 	char temp[255];
 		
 	ch[14]='0' + fileno;
 	ptr=fopen(ch,"w");
+	fileno++;
+	fputs(buffer,ptr);
+	fclose(ptr);
+	n=write(newsockfd,"recieved",strlen("recieved"));
+	if(n<0)
+	{
+		error("ERROR writing to socket");
+	}
 	
-	while(buffer[i]!='\0')
+	/*while(buffer[i]!='\0')
 	{
 		
 		if(buffer[i]=='\n')
@@ -80,9 +92,10 @@ void server()
 		}
 		i++;
 	
-	}
+	}*/
         last_backup_write();
-         system("./Recieved/decode.sh");
-        break;
+        // system("./Recieved/decode.sh");
+        //break;
         }
+	n=write(newsockfd,"Job Done",strlen("Job Done"));
 }

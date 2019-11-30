@@ -81,7 +81,7 @@ int main()
     banner();
     green();
     system("echo 'The Last Backup was on: ' ;cat .lastbackup.txt");
-    system("./.wifi.sh");
+   // system("./.wifi.sh");
 
     int choice = machine_page();
 
