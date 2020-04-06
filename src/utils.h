@@ -1,0 +1,11 @@
+extern int machine_page();
+extern int common_display_page();
+extern int showip();
+extern void last_backup_write();
+extern void last_backup_read();
+extern void linHotspot();
+extern void linWifi();
+extern void error(char *msg);
+extern void banner();
+extern void create_workspace();
+extern char *input();
