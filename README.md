@@ -14,7 +14,9 @@ Platform
 
 Build
 -----
-
+* `cd /src`
+* `gcc main.c client.c client.h server.c server.h color.c color.h utils.c utils.h -o Lazy`
+* `./Lazy`
 
 Dependencies
 ------------
