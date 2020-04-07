@@ -15,15 +15,13 @@
 
 void client(char ip[])
 {   
-	/* Declarations */
+	
+    char buffer[10000];
     int sockfd, portno = 1234, n;
-    struct sockaddr_in serv_addr;
     struct hostent *server;
-	char *buffer;
-	long filelen = 256;
-    server = gethostbyname(ip);
+    struct sockaddr_in serv_addr;
+	server = gethostbyname(ip);
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    // char buffer[256];
     
     if (sockfd < 0) 
 	{
@@ -48,68 +46,51 @@ void client(char ip[])
 	}
 
     printf("Sending File: ");
-    bzero(buffer,filelen);
-
-    int i=0;
+	int size , i = 0 ;
 	struct dirent *de;
-	DIR *dr = opendir("./Files");
-	while((de=readdir(dr))!=NULL)
+	DIR *dr = opendir("./LazyShare/Sent");
+	
+	while( ( de = readdir(dr) ) != NULL )
 	{
-			FILE *filepointer;
-			char ch[50]="./Files/";
-			char *ch2=de->d_name;
-		
-			if((strcmp(".",ch2)==0)||(strcmp("..",ch2)==0)||(strcmp("encode.sh",ch2)==0))
-				continue;
+		FILE *filepointer ;
+		char ch[50]="./LazyShare/Sent";
+		char *ch2=de->d_name;
+	
+		if((strcmp(".",ch2)==0)||(strcmp("..",ch2)==0))
+			continue;
 
-			strcat(ch,ch2);
-			bzero(buffer,256);
-			printf("file sending is %s\n",ch);
-			filepointer = fopen(ch , "rb");
-			filelen = ftell(filepointer);
-			buffer = (char *)malloc(filelen * sizeof(char));
-    		fgets(buffer,filelen,filepointer);
-    		n = write(sockfd,buffer,strlen(buffer));
-			if (n < 0) 
-        		{
-            			error("ERROR writing to socket");
-         		}
-    			  			
-			bzero(buffer,filelen);
-			//n=read(sockfd,buffer,255);
-			if (n < 0) 
-        		{
-            			error("ERROR reading to socket");
-         		}
-			while(1)
-			{
-				bzero(buffer,filelen);
-				n=read(sockfd,buffer,filelen);
-				//printf("recieved buffer is %s\n",buffer);
-				if(strncmp("recieved",buffer,5)==0)
-					break;
-			}
-    			 bzero(buffer,filelen);
-    			printf("%d file send\n",i+1);
+		strcat(ch,ch2);
+		bzero(buffer,10000);
+		filepointer = fopen(ch , "rb");
+		fgets(buffer,10000,filepointer);
+		
+		printf("Sending File: %s\n",ch);
+		
+		n = write(sockfd,buffer,strlen(buffer));
+		
+		if (n < 0) {error("ERROR writing to socket");}
+						
+		bzero(buffer,10000);
+
+		while(1)
+		{
+			bzero(buffer,10000);
+			n = read( sockfd , buffer , 10000 );
+			if( strncmp( "Recieved" , buffer , 5 ) == 0)
+				break;
+		}
+		
+		bzero(buffer,10000);
+		printf("%d Sending File: \n",i+1);
 		i++;
 	}
 	
-	n=write(sockfd,"complete",strlen("complete"));
-	
-	if (n < 0) 
-	{
-		error("ERROR writing to socket");
-	}  
-	
-	bzero(buffer,256);
+	n = write(sockfd,"Complete",strlen("Complete"));
+	if (n < 0) { error("ERROR writing to socket");}
+	bzero(buffer,10000);
 	last_backup_write();
-	n = read(sockfd,buffer,255);
-    	
-	if (n < 0) 
-	{
-		error("ERROR reading from socket");
-	}
-	
-	printf("%s\n",buffer);
+    n = read(sockfd,buffer,10000);
+    if (n < 0) { error("ERROR writing to socket");}
+    printf("%s\n",buffer);
 }
 

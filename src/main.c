@@ -1,7 +1,7 @@
-#include "src/client.h"
-#include "src/server.h"
-#include "src/utils.h"
-#include "src/color.h"
+#include "client.h"
+#include "server.h"
+#include "utils.h"
+#include "color.h"
 #include <stdio.h>
 #include <time.h>
 #include <netdb.h> 
@@ -12,7 +12,6 @@
 #include <netinet/in.h>
 #include <string.h>
 
-char *ip;
 int main()
 {
     create_workspace();
@@ -53,6 +52,7 @@ int main()
     }
     else if(choice == 2)
     {
+        char *ip; 
         ip = input();
         int n = common_display_page();
 

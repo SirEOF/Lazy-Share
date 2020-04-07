@@ -13,7 +13,7 @@
 #include <netinet/in.h>
 #include <string.h>
 
-char ip[50];
+char ip[16];
 void linHotspot()
 {
     char *c;
