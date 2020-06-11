@@ -8,15 +8,19 @@ About
 * Lazy Share is implemented in C programming language.
 * Feel free to fork and contribute to this repo.
 
+Usage
+--------
+* Put the files you want to send in LazyShare/Sent folder.
+* The recieved files would be in LazyShare/Recieved folder.
+
+
 Platform
 --------
 * Tested on Ubuntu 18.04 , Linux Kernel 5.3.0
 
 Build
 -----
-* `cd /src`
-* `gcc main.c client.c client.h server.c server.h color.c color.h utils.c utils.h -o Lazy`
-* `./Lazy`
+* `make && make clean`
 
 Dependencies
 ------------
